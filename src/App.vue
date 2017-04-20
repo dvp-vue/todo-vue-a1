@@ -1,17 +1,42 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <hello></hello>
+    <todo-list v-bind:todos="todos"></todo-list>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import TodoList from './components/TodoList'
 
 export default {
   name: 'app',
   components: {
-    Hello
+    TodoList
+  },
+  data () {
+    return {
+      todos: [{
+        title: 'Todo A',
+        project: 'Project A',
+        done: true
+      }, {
+        title: 'Todo B',
+        project: 'Project B',
+        done: false
+      }, {
+        title: 'Todo C',
+        project: 'Project C',
+        done: true
+      }, {
+        title: 'Todo D',
+        project: 'Project D',
+        done: false
+      }, {
+        title: 'Todo E',
+        project: 'Project E',
+        done: true
+      }]
+    }
   }
 }
 </script>

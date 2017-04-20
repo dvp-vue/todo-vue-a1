@@ -1,23 +1,38 @@
 <template>
     <div>
-    
-        <ul>
-    
-            <li>To do</li>
-    
-            <li>To do</li>
-    
-            <li>To do</li>
-    
-        </ul>
-    
+       <p>Completed Tasks:{{todos.filter(todo => {return todo.done === true}).length}}</p>
+       <p>Pending Tasks: {{todos.filter(todo => {return todo.done === false}).length}}</p>
+       <div class='ui centered card' v-for="todo in todos">
+            <div class="content">
+                <div class="header">
+                    {{todo.title}}
+                </div>
+                <div class="meta">
+                    {{todo.project}}
+                </div>
+                <div class="extra content">
+                    <span class="right floated edit icon">
+                    <i class="eidt icone"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="ui bottom attached green basic button" v-show="todo.done">
+                Completed
+            </div>
+            <div class="ui bottom attached red basic button" v-show="!todo.done">
+                Complete
+            </div>
+       </div>
     </div>
 </template>
-<script type="text/javascript">
-    export default{
 
-    };
+<script>
+export default {
+  props: ['todos']
+}
 </script>
-<style >
-    
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
 </style>
