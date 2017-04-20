@@ -1,4 +1,4 @@
-# dvp-todo-app
+# todo-app-bonbonpa
 
 > A Vue.js project
 
