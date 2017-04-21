@@ -1,38 +1,71 @@
 <template>
-    <div>
-       <p>Completed Tasks:{{todos.filter(todo => {return todo.done === true}).length}}</p>
-       <p>Pending Tasks: {{todos.filter(todo => {return todo.done === false}).length}}</p>
-       <div class='ui centered card' v-for="todo in todos">
-            <div class="content">
+       <div class='ui centered card'>
+            <div class="content" v-show="!isEditing">
                 <div class="header">
-                    {{todo.title}}
+                    {{ todo.title }}
                 </div>
                 <div class="meta">
-                    {{todo.project}}
+                    {{ todo.project }}
                 </div>
                 <div class="extra content">
-                    <span class="right floated edit icon">
-                    <i class="eidt icone"></i>
+                
+                    <span class="right floated edit icon" v-on:click="showForm">
+                    <i class="edit icon"></i>
+                    </span>
+                     <span class="right floated edit icon" v-on:click="deleteTodo(todo)">
+                    <i class="trash icon"></i>
                     </span>
                 </div>
             </div>
-            <div class="ui bottom attached green basic button" v-show="todo.done">
+            <div class="content" v-show="isEditing">
+                <div class="ui form">
+                    <div class="field">
+                        <label>Title</label>
+                        <input type="text" v-model="todo.title">
+                    </div>
+                    <div class="field">
+                        <label for="">Project</label>
+                         <input type="text" v-model="todo.project">
+                    </div>
+                    <div class="ui two button attached buttons">
+                        <button class="ui basic blue button" v-on:click="hideForm">
+                            Close X
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="ui bottom attached green basic button" v-show="!isEditing && todo.done" disbled>
                 Completed
             </div>
-            <div class="ui bottom attached red basic button" v-show="!todo.done">
-                Complete
+            <div class="ui bottom attached red basic button" v-show="!isEditing &&!todo.done">
+                Pending
             </div>
        </div>
-    </div>
 </template>
 
 <script>
 export default {
-  props: ['todos']
+  props: ['todo'],
+
+  data(){
+      return {
+          isEditing: false
+      };
+  },
+  methods: {
+       deleteTodo(todo){
+        this.$emit('delete-todo',todo);
+      },
+      completeTodo(todo){
+          this.$emit('complete-todo',todo);
+      },
+      showForm(){
+          this.isEditing = true;
+      },
+      hideForm(){
+          this.isEditing = false;
+      }    
+  }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-</style>

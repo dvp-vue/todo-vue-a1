@@ -1,21 +1,27 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
+  <div id="app">  
+    
     <todo-list v-bind:todos="todos"></todo-list>
+    <create-todo v-on:add-todo="createTodo"></create-todo>
   </div>
 </template>
 
 <script>
+import sweetalert from 'sweetalert';
 import TodoList from './components/TodoList'
+import CreateTodo from './components/CreateTodo'
 
 export default {
   name: 'app',
   components: {
-    TodoList
+    TodoList,
+    CreateTodo
   },
   data () {
+
     return {
       todos: [{
+
         title: 'Todo A',
         project: 'Project A',
         done: true
@@ -36,9 +42,18 @@ export default {
         project: 'Project E',
         done: true
       }]
+    };
+  },
+  methods: {
+
+    createTodo(titile){
+      this.todos.push({
+        title,
+        done: false
+      });
     }
   }
-}
+};
 </script>
 
 <style>
